@@ -1,0 +1,133 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Product Details
+{% endblock %}
+
+{% block main %}
+
+<style>
+  body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    color: #333;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+  }
+
+  .buttons-container {
+    display: flex;
+    justify-content: space-between; /* Change to space-between to put buttons on opposite ends */
+    width: 100%; /* Ensure the container spans the full width */
+    margin-bottom: 20px;
+  }
+
+  .back-btn, .edit-btn {
+    background-color: red;
+    color: white;
+    padding: 11.5px 17.25px; /* Increased padding by 15% */
+    text-decoration: none;
+    border-radius: 23px; /* Increased border-radius by 15% */
+    font-size: 115%; /* Increased font-size */
+    transition: background-color 0.3s, color 0.3s;
+  }
+
+  .back-btn:hover, .edit-btn:hover {
+    background-color: darkred;
+    color: #fff;
+  }
+
+  .product-container {
+    max-width: 1200px;
+    margin: 50px auto;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    display: flex;
+    align-items: flex-start; /* Changed from center to flex-start */
+    justify-content: center;
+  }
+
+  .product-image {
+    width: 50%;
+    padding: 20px;
+  }
+
+  .product-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+
+  .product-info {
+    width: 50%;
+    padding: 20px;
+  }
+
+  .product-info h1 {
+    font-size: 32px;
+    color: #333;
+    margin-bottom: 20px;
+  }
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+
+  ul li {
+    margin-bottom: 10px;
+    font-size: 18px;
+    text-align: justify;
+    text-justify: inter-word;
+
+  }
+
+
+</style>
+
+<div class="buttons-container">
+  <a href="/products" class="back-btn">Back</a>
+  <!-- Remove the incorrect td tags and correct the structure -->
+  <form action="/edit_product/{{ product.LSSIN }}" method="POST" style="display: inline;">
+    <!-- No need for a hidden input for LSSIN since it's already in the URL -->
+    <button type="submit" class="edit-btn" name="edit_button">Edit Product Details</button>
+</form>
+
+</div>
+
+
+<div class="product-container">
+  {% if product %}
+    <div class="product-image">
+      {% if product.image %}
+        <img src="{{ product.image }}" alt="Product Image">
+      {% endif %}
+    </div>
+
+    <div class="product-info">
+      <h1>{{ product.item_name }}</h1>
+      <ul>
+        <li><strong>LSSIN:</strong> {{ product.LSSIN }}</li>
+        {% for field, value in product.items() %}
+          {% if field != 'image' and field != 'item_name' %}
+            <li>
+              <strong>{{ field.replace('_', ' ') | capitalize }}:</strong> 
+              {% if field == 'msrp' or field == 'msrp_tax_amount' %}
+                {{ value | mxn }}
+              {% else %}
+                {{ value }}
+              {% endif %}
+            </li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+    </div>
+  {% else %}
+    <p>Product not found</p>
+  {% endif %}
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Products
+{% endblock %}
+
+
+
+{% block main %}
+    <h2>Product Summary</h2>
+    <br>
+    <br>
+    <table class="table">
+        <thead>
+        <tr>
+          <th>GL Description</th>
+          <th>Product Count</th>
+          <th>Share Total</th>
+        </tr>
+        </thead>
+        <tbody>
+       {% for product in products %}
+        <tr>
+          <th scope="row">{{ product.gl_description }}</th>
+          <td>{{ product.product_count }}</td>
+          <td>{{ product.share_of_total | round(2) }}%</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+</html>
+  
+{% endblock %}

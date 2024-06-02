@@ -1,0 +1,240 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Portfolio
+{% endblock %}
+
+{% block main %}
+
+<style>
+
+  body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    color: #333;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+  }
+
+  .buttons-container {
+    display: flex;
+    justify-content: space-between; /* Change to space-between to put buttons on opposite ends */
+    width: 100%; /* Ensure the container spans the full width */
+    margin-bottom: 20px;
+  }
+
+  .back-btn, .edit-btn {
+    background-color: red;
+    color: white;
+    padding: 11.5px 17.25px; /* Increased padding by 15% */
+    text-decoration: none;
+    border-radius: 23px; /* Increased border-radius by 15% */
+    font-size: 115%; /* Increased font-size */
+    transition: background-color 0.3s, color 0.3s;
+  }
+
+  .back-btn:hover, .edit-btn:hover {
+    background-color: darkred;
+    color: #fff;
+  }
+
+  .product-container {
+    max-width: 1200px;
+    margin: 50px auto;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    display: flex;
+    align-items: flex-start; /* Changed from center to flex-start */
+    justify-content: center;
+  }
+
+  .product-image {
+    width: 50%;
+    padding: 20px;
+  }
+
+  .product-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+
+  .product-info {
+    width: 50%;
+    padding: 20px;
+  }
+
+  .product-info h1 {
+    font-size: 32px;
+    color: #333;
+    margin-bottom: 20px;
+  }
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+
+  ul li {
+    margin-bottom: 10px;
+    font-size: 18px;
+    text-align: justify;
+    text-justify: inter-word;
+  }
+</style>
+
+<div class="product-container">
+  
+    </div>
+
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta name="viewport" content="initial-scale=1, width=device-width">
+        <title>hello</title>
+    </head>
+    <body>
+        <h1>Creating New Product <strong>LS{{new_id}}</strong></h1><br>
+        <h2>Please Fill Out Form Below</h2><br>
+        <form id="dataForm">
+          <div style="text-align: left; font-size: 18px;">
+          <strong>LSSIN:</strong> LS{{new_id}}<br><br>
+          <label for="item_name"><strong>Item Name:</strong></label>
+          <input type="text" id="item_name" name="item_name" placeholder="(Requiered)"><br><br> 
+          <label for="SKU"><strong>SKU:</strong></label>
+          <input type="text" id="SKU" name="SKU" placeholder="(Optional)"><br><br>
+          <strong>Marketplace ID:</strong> 1<br><br>
+          <label for="image"><strong>Image URL:</strong></label>
+          <input type="text" id="image" name="image" placeholder="(Requiered)"><br><br>
+          <!--start gl_description-->
+          <span id = "span-gl_description" ; data_options="{{ gl_description_values_json }}"></span>
+          <label for="gl_description"></label><strong>GL Description:</strong>
+          <select id="gl_description" name="gl_description" onclick = "var dataOpts = document.getElementById('span-gl_description').getAttribute('data_options'); console.log('data_options:', dataOpts); if(dataOpts) { try { console.log('Parsed data_options:', JSON.parse(dataOpts)); console.log('test','gl_description'); getdata('gl_description', JSON.parse(dataOpts)); } catch (e) { console.error('Parsing error:', e); }} else { console.log('No data options available or invalid JSON.'); }">
+            <option value="" disabled selected>Select an option</option></select><br><br>
+          <!--end gl_description-->
+          <label for="variance_type"><strong>Variance Type:</strong></label>
+          <input type="text" id="variance_type" name="variance_type" placeholder="(Optional)"><br><br>
+          <label for="variance"><strong>Variance:</strong></label>
+          <input type="text" id="variance" name="variance" placeholder="(Optional)"><br><br>
+          <label for="description"><strong>Description:</strong></label>
+          <input type="text" id="description" name="description" placeholder="(Optional)"><br><br>
+          <label for="color_name"><strong>Color Name:</strong></label>
+          <input type="text" id="color_name" name="color_name" placeholder="(Optional)"><br><br>
+          <label for="material_type"><strong>Material Type:</strong></label>
+          <input type="text" id="material_type" name="material_type" placeholder="(Optional)"><br><br>
+          <label for="msrp"><strong>MSRP:</strong></label>
+          <input type="number" id="msrp" name="msrp" placeholder="(Required)" min="0" step="1"><br><br>
+          <label for="msrp_tax_amount"><strong>MSRP Tax Amount:</strong></label>
+          <input type="number" id="msrp_tax_amount" name="msrp_tax_amount" placeholder="(Required)" step="0.01"><br><br>
+          <!--start category_name-->
+          <span id = "span-category_name" ; data_options="{{ category_name_values_json }}"></span>
+          <label for="category_name"></label><strong>Category Name:</strong>
+          <select id="category_name" name="category_name" onclick = "var dataOpts = document.getElementById('span-category_name').getAttribute('data_options'); console.log('data_options:', dataOpts); if(dataOpts) { try { console.log('Parsed data_options:', JSON.parse(dataOpts)); console.log('test','category_name'); getdata('category_name', JSON.parse(dataOpts)); } catch (e) { console.error('Parsing error:', e); }} else { console.log('No data options available or invalid JSON.'); }">
+            <option value="" disabled selected>Select an option</option></select><br><br>
+          <!--end category_name-->
+          <!--start subcategory_name-->
+          <span id = "span-subcategory_name" ; data_options="{{ subcategory_name_values_json }}"></span>
+          <label for="subcategory_name"></label><strong>Sub-Category Name:</strong>
+          <select id="subcategory_name" name="subcategory_name" onclick = "var dataOpts = document.getElementById('span-subcategory_name').getAttribute('data_options'); console.log('data_options:', dataOpts); if(dataOpts) { try { console.log('Parsed data_options:', JSON.parse(dataOpts)); console.log('test','subcategory_name'); getdata('subcategory_name', JSON.parse(dataOpts)); } catch (e) { console.error('Parsing error:', e); }} else { console.log('No data options available or invalid JSON.'); }">
+            <option value="" disabled selected>Select an option</option></select><br><br>
+          <!--end subcategory_name-->        
+          <!--start brand_name-->
+          <span id = "span-brand_name" ; data_options="{{ brand_name_values_json }}"></span>
+          <label for="brand_name"></label><strong>Brand Name:</strong>
+          <select id="brand_name" name="brand_name" onclick = "var dataOpts = document.getElementById('span-brand_name').getAttribute('data_options'); console.log('data_options:', dataOpts); if(dataOpts) { try { console.log('Parsed data_options:', JSON.parse(dataOpts)); console.log('test','brand_name'); getdata('brand_name', JSON.parse(dataOpts)); } catch (e) { console.error('Parsing error:', e); }} else { console.log('No data options available or invalid JSON.'); }">
+            <option value="" disabled selected>Select an option</option></select><br><br>
+          <!--end brand_name-->
+          <label for="number_of_items"><strong>No. Of Items:</strong></label>
+          <input type="number" id="number_of_items" name="number_of_items" placeholder="(Required)" step="1"><br><br>
+          <label for="number_of_items"><strong>HTS Code:</strong></label>
+          <input type="text" id="hts_code" name="hts_code" placeholder="(Optional)"><br><br>
+          <label for="parent_lssin"><strong>Parent LSSIN:</strong></label>
+          <input type="text" id="parent_lssin" name="parent_lssin" placeholder="(Optional)"><br><br>
+          <label for="is_base_product"><strong>Is Base Product:</strong></label>
+          <select id="is_base_product" name="is_base_product">
+            <option value="" disabled selected>Select an option</option>
+            <option value="Y">Y</option>
+            <option value="N">N</option>
+          </select><br><br>
+          <label for="size"><strong>Size:</strong></label>
+          <input type="text" id="size" name="size" placeholder="(Optional)"><br><br>
+          <label for="unit_of_measurement"><strong>Unit Of Measurement:</strong></label>
+          <input type="text" id="unit_of_measurement" name="unit_of_measurement" placeholder="(Optional)"><br><br>
+          <label for="country_of_origin"><strong>Country of Origin:</strong></label>
+          <input type="text" id="country_of_origin" name="country_of_origin" placeholder="(Optional)"><br><br>
+          <label for="care_instructions"><strong>Care Instructions:</strong></label>
+          <input type="text" id="care_instructions" name="care_instructions" placeholder="(Optional)"><br><br>
+          <label for="is_vintage"><strong>Is Vintage:</strong></label>
+          <select id="is_vintage" name="is_vintage">
+            <option value="" disabled selected>Select an option</option>
+            <option value="Y">Y</option>
+            <option value="N">N</option>
+          </select><br><br>
+          <label for="is_pre_order"><strong>Is Pre-Order:</strong></label>
+          <select id="is_pre_order" name="is_pre_order">
+            <option value="" disabled selected>Select an option</option>
+            <option value="Y">Y</option>
+            <option value="N">N</option>
+          </select><br><br>
+          </div>
+          <button type="button" onclick="submitForm()">Submit</button>
+        </form>
+  
+<script>
+ function getdata(field,data)
+  {
+    console.log('arrived at getdata:', data.length)
+    var select = document.getElementById(field);
+    for (var i = 0; i < data.length; i++) {
+      var option = document.createElement('option');
+      option.text = data[i];
+      select.add(option);
+    }
+    console.log('getdata:', field, data)
+    document.getElementById(field).onclick = null;
+  }
+
+  function submitForm() {
+    var data = {};
+    var form = document.getElementById("dataForm");
+    for (var i = 0; i < form.length; i++) {
+      if (form[i].name) {
+        data[form[i].name] = form[i].value;
+      }
+    }
+    console.log('data:', data);
+      fetch('/add_product_submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then(data => {
+        console.log('Success:', data);
+        alert('Product Added Successfully');
+        window.location.href = "/products";
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+        alert('Error Adding Product');
+  });
+  }
+
+
+</script>
+
+    {% endblock %}
+    
+
+
+    

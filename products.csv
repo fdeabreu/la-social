@@ -1,0 +1,4 @@
+id,prefix,LSSIN,SKU,marketplace_id,gl,gl_description,item_name,description,color_name,material_type,msrp,msrp_tax_amount,category_id,category_name,subcategory_id,subcategory_name,brand_id,brand_name,number_of_items,hts_code,parent_lssin,is_base_product,size,country_of_origin,care_instructions,is_vintage,is_pre_order
+1,LS,LS1,,1,1,gl_dining,Les Depareillees Green Osieau Dessert Plate - Set of 2,Set of 2,Green,Ceramic,1150.0,966.0,1,dinnerware,4,"dessert_plates
+",1,Gien,2,,,,23.2cm,France,Microwave and dishwasher safe -moderate use-,N,Y
+2,LS,LS2,,1,1,gl_dining,Les Deparielles Monogramme Dessert Plate - Set of 2,Set of 2,Green,Ceramic,1150.0,966.0,1,dinnerware,4,dessert_plates,1,Gien,2,,,Y,23.2 cm,France,Microwave and dishwasher safe -moderate use-,N,Y

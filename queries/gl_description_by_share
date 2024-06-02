@@ -1,0 +1,13 @@
+SELECT
+  gl_description,
+  count(lssin) AS product_count,
+  CAST(count(lssin) AS FLOAT) / (
+    SELECT SUM(product_count) FROM (
+      SELECT gl_description, count(lssin) AS product_count
+      FROM lssin
+      GROUP BY gl_description
+    ) AS total_count_table
+  ) AS share_of_total
+FROM lssin
+GROUP BY gl_description
+order by share_of_total DESC

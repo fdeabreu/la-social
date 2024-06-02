@@ -1,0 +1,249 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Edit Product Details
+{% endblock %}
+
+{% block main %}
+
+<style>
+
+  body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    color: #333;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+  }
+
+  .buttons-container {
+    display: flex;
+    justify-content: space-between; /* Change to space-between to put buttons on opposite ends */
+    width: 100%; /* Ensure the container spans the full width */
+    margin-bottom: 20px;
+  }
+
+  .back-btn, .edit-btn {
+    background-color: red;
+    color: white;
+    padding: 11.5px 17.25px; /* Increased padding by 15% */
+    text-decoration: none;
+    border-radius: 23px; /* Increased border-radius by 15% */
+    font-size: 115%; /* Increased font-size */
+    transition: background-color 0.3s, color 0.3s;
+  }
+
+  .back-btn:hover, .edit-btn:hover {
+    background-color: darkred;
+    color: #fff;
+  }
+
+  .product-container {
+    max-width: 1200px;
+    margin: 50px auto;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    display: flex;
+    align-items: flex-start; /* Changed from center to flex-start */
+    justify-content: center;
+  }
+
+  .product-image {
+    width: 50%;
+    padding: 20px;
+  }
+
+  .product-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+
+  .product-info {
+    width: 50%;
+    padding: 20px;
+  }
+
+  .product-info h1 {
+    font-size: 32px;
+    color: #333;
+    margin-bottom: 20px;
+  }
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+
+  ul li {
+    margin-bottom: 10px;
+    font-size: 18px;
+    text-align: justify;
+    text-justify: inter-word;
+  }
+</style>
+
+
+<div class="product-container">
+  {% if product %}
+    <div class="product-image">
+      {% if product.image %}
+        <img src="{{ product.image }}" alt="Product Image">
+          <span id="span-image">{{ value }}</span>
+          <button type="button" onclick="makeEditable('{{ product.LSSIN }}', 'image')">Edit</button>
+        </form>
+      {% endif %}
+    </div>
+
+    <div class="product-info">
+      <h1>{{ product.item_name }}</h1>   
+      <ul>
+        <li><strong>LSSIN:</strong> {{ product.LSSIN }}</li>
+        {% for field, value in product.items() %}
+          {% if field not in ['id', 'prefix', 'LSSIN', 'gl', 'marketplace_id','category_id', 'subcategory_id', 'brand_id', 'image', 'item_name'] %}
+            <li id="li-{{ field }}">
+              <strong>{{ field.replace('_', ' ') | capitalize }}:</strong>
+              {% if field == 'gl_description' %}
+                <!-- Special handling for gl_description with a data attribute -->
+                <span id="span-{{ field }}"; data_options="{{ gl_description_values_json }}">{{ value }}</span>
+                <button type="button" onclick="var dataOpts = document.getElementById('span-{{ field }}').getAttribute('data_options'); console.log('data_options:', dataOpts); if(dataOpts) { try { console.log('Parsed data_options:', JSON.parse(dataOpts)); console.log('test','{{ field }}'); makeEditable('{{ product.LSSIN }}','{{ field }}', JSON.parse(dataOpts)); } catch (e) { console.error('Parsing error:', e); }} else { console.log('No data options available or invalid JSON.'); }">Edit</button>
+              {% elif field == 'category_name' %}
+                <span id="span-{{ field }}" data_options="{{ category_name_values_json }}">{{ value }}</span>
+                <button type="button" onclick="var dataOpts = document.getElementById('span-{{ field }}').getAttribute('data_options'); console.log('data_options:', dataOpts); if(dataOpts) { try { console.log('Parsed data_options:', JSON.parse(dataOpts)); makeEditable('{{ product.LSSIN }}','{{ field }}', JSON.parse(dataOpts)); } catch (e) { console.error('Parsing error:', e); }} else { console.log('No data options available or invalid JSON.'); }">Edit</button>
+              
+              {% elif field == 'subcategory_name' %}
+                <span id="span-{{ field }}" data_options="{{ subcategory_name_values_json }}">{{ value }}</span>
+                <button type="button" onclick="var dataOpts = document.getElementById('span-{{ field }}').getAttribute('data_options'); console.log('data_options:', dataOpts); if(dataOpts) { try { console.log('Parsed data_options:', JSON.parse(dataOpts)); makeEditable('{{ product.LSSIN }}','{{ field }}', JSON.parse(dataOpts)); } catch (e) { console.error('Parsing error:', e); }} else { console.log('No data options available or invalid JSON.'); }">Edit</button>
+              
+              {% elif field == 'brand_name' %}
+                <span id="span-{{ field }}" data_options="{{ brand_name_values_json }}">{{ value }}</span>
+                <button type="button" onclick="var dataOpts = document.getElementById('span-{{ field }}').getAttribute('data_options'); console.log('data_options:', dataOpts); if(dataOpts) { try { console.log('Parsed data_options:', JSON.parse(dataOpts)); makeEditable('{{ product.LSSIN }}','{{ field }}', JSON.parse(dataOpts)); } catch (e) { console.error('Parsing error:', e); }} else { console.log('No data options available or invalid JSON.'); }">Edit</button>
+              
+              {% elif field == 'country_of_origin' %}
+              <span id="span-{{ field }}" data_options="{{ country_of_origin_values_json }}">{{ value }}</span>
+              <button type="button" onclick="var dataOpts = document.getElementById('span-{{ field }}').getAttribute('data_options'); console.log('data_options:', dataOpts); if(dataOpts) { try { console.log('Parsed data_options:', JSON.parse(dataOpts)); makeEditable('{{ product.LSSIN }}','{{ field }}', JSON.parse(dataOpts)); } catch (e) { console.error('Parsing error:', e); }} else { console.log('No data options available or invalid JSON.'); }">Edit</button>
+
+              {% else %}
+                <span id="span-{{ field }}">{{ value }}</span>
+                <button type="button" onclick="makeEditable('{{ product.LSSIN }}', '{{ field }}')">Edit</button>              {% endif %}
+            </li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+    </div>
+    {% else %}
+    <p>Product not found</p>
+    {% endif %}
+    </div>
+    
+
+
+
+<script>
+function makeEditable(LSSIN, field, options={}) {
+  console.log("test-editable", field, LSSIN);
+  var spanId = "span-" + field;
+  var span = document.getElementById(spanId);
+  var currentValue = span.innerText;
+  
+
+  if (field === "gl_description" || field === "category_name" || field === "subcategory_name" || field === "brand_name" || field === "country_of_origin") {
+    var selectHTML = `<select id="input-${field}">`;
+    options.forEach(option => {
+      selectHTML += `<option value="${option}"${option === currentValue ? ' selected' : ''}>${option}</option>`;
+    });
+    selectHTML += `</select>`;
+    span.innerHTML = selectHTML;
+  } 
+  
+  else if (field === "is_base_product" || field === "is_vintage" || field === "is_pre_order") {
+    var selectHTML = `<select id="input-${field}">`;
+    ["Y", "N"].forEach(option => {
+      selectHTML += `<option value="${option}"${option === currentValue ? ' selected' : ''}>${option}</option>`;
+    });
+    selectHTML += `</select>`;
+    span.innerHTML = selectHTML;
+  }
+  
+  else if (field == "msrp" || field == "number_of_items" || field == "msrp_tax_amount") {
+    var inputBox = `<input type="number" id="input-${field}" value="${escapeHtml(currentValue)}">`;
+    span.innerHTML = inputBox;
+  }
+  
+  else {
+    var inputBox = `<input type="text" id="input-${field}" value="${escapeHtml(currentValue)}">`;
+    span.innerHTML = inputBox;
+    console.log("test", field);
+  }
+
+  span.innerHTML += `<button type="button" onclick="saveChanges('${LSSIN}', '${field}', '${escapeHtml(currentValue)}')">Save</button>`;
+  span.innerHTML += `<button type="button" onclick="cancelEdit('${LSSIN}', '${field}', '${escapeHtml(currentValue)}')">Cancel</button>`;
+}
+
+function saveChanges(LSSIN, field, originalValue) {
+  var newValue = document.getElementById("input-" + field).value;
+  document.getElementById("span-" + field).innerText = newValue;
+  // Send newValue to server here
+  var data = { LSSIN: LSSIN, field: field, value: newValue };
+  console.log("test-data to update",data);
+  var jsonData = JSON.stringify(data);
+  console.log("test-jsonData",jsonData);
+  
+   // Validate jsonData
+   try {
+    JSON.parse(jsonData);
+    console.log('JSON is valid');
+  } catch (error) {
+    console.error('Invalid JSON:', error);
+    return;  // Stop execution if JSON is invalid
+  }
+
+  fetch("/update_product", {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: jsonData,
+  })
+    
+  .then(response => {
+    if (!response.ok) {
+      // Handle non-200 responses
+      console.error('Error status:', response.status);
+      console.error('Error status text:', response.statusText);
+      throw new Error('Network response was not ok');
+    }
+    return response.json();
+  })
+  .then(data => {
+    console.log('Success:', data);
+    alert("Saved");
+  })
+  .catch((error) => {
+    console.error('Error:', error);
+    alert("Error saving changes. Please try again.");
+  });
+}
+
+
+function cancelEdit(LSSIN,field, originalValue) {
+  document.getElementById("span-" + field).innerHTML = originalValue;
+}
+
+// Function to escape HTML special characters to prevent XSS
+function escapeHtml(text) {
+  var map = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#039;'
+  };
+  return text.replace(/[&<>"']/g, function(m) { return map[m]; });
+}
+</script>
+
+{% endblock %}
+

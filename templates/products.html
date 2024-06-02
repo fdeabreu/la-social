@@ -1,0 +1,60 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Products
+{% endblock %}
+
+
+
+{% block main %}
+
+<style>
+  .btn-red {
+      background-color: red !important; /* Make the button red */
+      border-color: red !important; /* Change the border color to red too, if there is one */
+  }
+  </style>
+  
+
+<h2>Product List</h2> 
+<p>Total Number of Products: {{ lssin_count }}</p>
+    <br>
+    <br>
+    <table class="table">
+        <thead>
+        <tr>
+          <th>image</th>
+          <th>lssin</th>
+          <th>Brand Name</th>
+          <th>GL Description</th>
+          <th>Item Name</th>
+          <th>MSRP w/ Tax</th>
+          <th>Category Name</th>
+          <th>Subcategory Name</th>
+          <th>Edit</th>          </tr>
+
+        </tr>
+        </thead>
+        <tbody>
+       {% for product in products %}
+        <tr>
+          <th scope="row"><img src="{{ product.image }}" alt="{{ product.item_name }} Thumbnail" width="80" height="50"> </th>
+          <td>{{ product.LSSIN }}</td>
+          <td>{{ product.brand_name }}</td>
+          <td>{{ product.gl_description }}</td>
+          <td>{{ product.item_name }}</td>
+          <td>{{ product.msrp_tax_amount |mxn}}</td>
+          <td>{{ product.category_name }}</td>
+          <td>{{ product.subcategory_name }}</td>
+          <td><td><form action="/products" method="POST">
+            <input type="hidden" name="LSSIN" value="{{ product.LSSIN}}">
+            <button type="submit" class="btn btn-primary btn-red" name="view_button">View</button>
+          </form></td>
+        </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+</html>
+
+
+{% endblock %}

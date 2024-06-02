@@ -1,0 +1,50 @@
+/* Size for brand */
+nav .navbar-brand
+{
+    font-size: xx-large;
+}
+
+/* Colors for brand */
+nav .navbar-brand .blue
+{
+    color: #537fbe;
+}
+nav .navbar-brand .red
+{
+    color: #ea433b;
+}
+nav .navbar-brand .yellow
+{
+    color: #f5b82e;
+}
+nav .navbar-brand .green
+{
+    color: #2e944b;
+}
+
+/* Size for Logo */
+
+ .logo-image{
+    width: 100px;
+    height: 50px;
+}
+
+.search-input {
+    width: 50%; /* Adjust width as needed */
+    padding: 10px; /* Adjust padding as needed */
+    margin: 0 auto; /* Center the search bar horizontally */
+    border: 1px solid #ccc; /* Optional border */
+  }
+  
+  .search-button {
+    background-color: blue; /* Blue button background */
+    color: white; /* White button text */
+    padding: 10px 20px; /* Adjust padding as desired */
+    border: none; /* Remove default button border */
+    cursor: pointer; /* Indicate clickable button */
+  }
+  
+  .product-details-list {
+    list-style-type: none; /* This removes the bullet points */
+}
+
